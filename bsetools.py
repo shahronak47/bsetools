@@ -37,6 +37,3 @@ class bsetools() :
         bse_link = self.get_bse_link(company_name)
         share_price = self.get_price_from_bse(bse_link)
         return share_price
-
-#if __name__ == '__main__' :
-#    get_quote("Tech Mahindra")
