@@ -23,7 +23,7 @@ class bsetools() :
         browser = webdriver.PhantomJS()
         browser.get(bse_link)
         html = browser.page_source
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, "html.parser")
         #For values which are less than previous day are shown in red
         value = soup.find('td', class_='tbmainred')
         if value is None :
