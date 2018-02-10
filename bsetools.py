@@ -27,7 +27,7 @@ class bsetools() :
         #For values which are less than previous day are shown in red
         value = soup.find('td', class_='tbmainred')
         if value is None :
-            #For values which are less than previous day are shown in green
+            #For values which are greater than previous day are shown in green
             value = soup.find('td', class_='tbmaingreen')
 
         return value.text.strip()
