@@ -17,7 +17,10 @@ class bsetools() :
         search_results = google.search(google_term)
         for result in search_results:
             if "bseindia" in result.link:
-                return result.link
+                return result.link, True
+
+        #If there is a wrong search term or could not find bseindia link
+        return "NA", False
 
     def get_price_from_bse(self, bse_link) :
         browser = webdriver.PhantomJS()
@@ -34,6 +37,9 @@ class bsetools() :
 
 
     def get_quote(self, company_name) :
-        bse_link = self.get_bse_link(company_name)
-        share_price = self.get_price_from_bse(bse_link)
-        return share_price
+        bse_link, flag = self.get_bse_link(company_name)
+        if flag :
+            share_price = self.get_price_from_bse(bse_link)
+            return share_price
+        else :
+           return "No relevant share price found for " + company_name
