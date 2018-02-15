@@ -1,8 +1,5 @@
 from google import google
-import pdb
 from bs4 import BeautifulSoup
-import requests
-import urllib
 from selenium import webdriver
 
 class bsetools() :
