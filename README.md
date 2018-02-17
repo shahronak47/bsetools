@@ -2,10 +2,31 @@
 
 Helps to get bse quotes from bseindia.com. 
 
+
+# Instalation
+
+```
+pip install bsetools
+```
+
+# Python 2.7+
+
 ```python
 from bsetools import bsetools
 
 obj = bsetools()
+print(obj.get_quote('Infosys'))
+
+#[1] 1103.80
+
+```
+
+# Python 3.5+ 
+
+```python
+from bsetools import bsetools
+
+obj = bsetools.bsetools()
 print(obj.get_quote('Infosys'))
 
 #[1] 1103.80
