@@ -37,7 +37,6 @@ In case if wrong stock names are given which does not match it returns the messa
 
 ```python 
 
-obj = bsetools()
 print(obj.get_quote("acdfssklmkfv"))
 
 #No relevant share price found for acdfssklmkfv
