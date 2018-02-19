@@ -2,7 +2,6 @@ from google import google
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import collections
-import pdb
 
 class bsetools() :
 
@@ -38,12 +37,13 @@ class bsetools() :
         html = browser.page_source
         soup = BeautifulSoup(html, "html.parser")
         #For values which are less than previous day are shown in red
-        value = soup.find('td', class_='tbmainred')
-        if value is None :
+        quote = soup.find('td', class_='tbmainred')
+        if quote is None :
             #For values which are greater than previous day are shown in green
-            value = soup.find('td', class_='tbmaingreen')
+            quote = soup.find('td', class_='tbmaingreen')
+        diff_than_yesterday = soup.find('td', class_='tbmainsmallred')
 
-        return value.text.strip()
+        return quote.text.strip(), diff_than_yesterday.text.strip()
 
     def get_quote(self, company_name) :
         bse_link, flag = self.get_bse_link(company_name)
