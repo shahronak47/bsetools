@@ -29,7 +29,11 @@ class bsetools() :
         Sensex = collections.namedtuple('Sensex', ['bse_index', 'diff'])
         Sensex.bse_index =  soup.find('div', class_='newsensexvalue').text.strip()
         Sensex.diff = soup.find('div', class_='newsensextext2').text.strip()
-        return Sensex
+        #Check if index returned is float, replacing commas with empty space so that it is easy to convert into float and check
+        if isinstance(float(Sensex.bse_index.replace(',', '')), float) :
+            return Sensex
+
+        return "Cannot find index now"
 
     def get_price_from_bse(self, bse_link) :
         browser = webdriver.PhantomJS()
@@ -41,9 +45,14 @@ class bsetools() :
         if quote is None :
             #For values which are greater than previous day are shown in green
             quote = soup.find('td', class_='tbmaingreen')
+        #Remove all tags and html class information and capture only value
+        quote = quote.text.strip()
         diff_than_yesterday = soup.find('td', class_='tbmainsmallred')
+        #Check if number which we have captured is float
+        if isinstance(float(quote), float) :
+            return quote, diff_than_yesterday.text.strip()
 
-        return quote.text.strip(), diff_than_yesterday.text.strip()
+        return "Cannot find price", ""
 
     def get_quote(self, company_name) :
         bse_link, flag = self.get_bse_link(company_name)
