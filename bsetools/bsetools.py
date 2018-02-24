@@ -10,7 +10,7 @@ class bsetools() :
         self.board = "BSE"
         self.bse_website = "https://www.bseindia.com/"
 
-    def get_bse_link(self, search_quote) :
+    def __get_bse_link(self, search_quote) :
         #Appending share price BSE to get a specific search result
         google_term = search_quote + " share price BSE"
         search_results = google.search(google_term)
@@ -35,7 +35,7 @@ class bsetools() :
 
         return "Cannot find index now"
 
-    def get_price_from_bse(self, bse_link) :
+    def __get_price_from_bse(self, bse_link) :
         browser = webdriver.PhantomJS()
         browser.get(bse_link)
         html = browser.page_source
@@ -55,9 +55,9 @@ class bsetools() :
         return "Cannot find price", ""
 
     def get_quote(self, company_name) :
-        bse_link, flag = self.get_bse_link(company_name)
+        bse_link, flag = self.__get_bse_link(company_name)
         if flag :
-            share_price = self.get_price_from_bse(bse_link)
+            share_price = self.__get_price_from_bse(bse_link)
             return share_price
         else :
             #Return relevant error message and empty bse index link in case there is no bse_link found
