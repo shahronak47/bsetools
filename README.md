@@ -1,6 +1,6 @@
 # bsetools
 
-Helps to get bse quotes from bseindia.com. 
+Helps to get bse quotes from bseindia.com. Available on PyPI now at : https://pypi.python.org/pypi/bsetools/ 
 
 
 # Instalation
