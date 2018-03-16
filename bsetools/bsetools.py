@@ -22,7 +22,7 @@ class bsetools() :
         return "NA", False
 
     def get_BSE_index(self):
-        browser = webdriver.PhantomJS()
+        browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
         browser.get(self.bse_website)
         html = browser.page_source
         soup = BeautifulSoup(html, "html.parser")
