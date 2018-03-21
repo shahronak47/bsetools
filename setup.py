@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='bsetools',
-    version='0.2.1',
+    version='0.2.2',
     packages=['bsetools'],
     url='https://github.com/shahronak47/bsetools',
     license='MIT',
