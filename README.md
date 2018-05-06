@@ -2,6 +2,8 @@
 
 Helps to get bse quotes from bseindia.com. Available on PyPI now at : https://pypi.python.org/pypi/bsetools/ 
 
+Blog here - [Bsetools - BSE share prices](https://shahronak47.wordpress.com/2018/02/17/bsetools-get-bse-share-prices/)
+
 
 # Instalation
 
