@@ -2,6 +2,7 @@ from google import google
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import collections
+import pdb
 
 class bsetools() :
 
@@ -28,9 +29,11 @@ class bsetools() :
         soup = BeautifulSoup(html, "html.parser")
         Sensex = collections.namedtuple('Sensex', ['bse_index', 'diff'])
         Sensex.bse_index =  soup.find('div', class_='newsensexvalue').text.strip()
-        Sensex.diff = soup.find('div', class_='newsensextext2').text.strip()
+        #As the new website gives lot of unnecessary information, we just strip it and take the first part
+        Sensex.diff =  soup.find('div', class_='newsensextext2').text.strip().split('\n')[0]
         #Check if index returned is float, replacing commas with empty space so that it is easy to convert into float and check
-        if isinstance(float(Sensex.bse_index.replace(',', '')), float) :
+        #if isinstance(float(Sensex.bse_index.replace(',', '')), float) :
+        if Sensex.bse_index:
             return Sensex
 
         return "Cannot find index now"
@@ -40,14 +43,11 @@ class bsetools() :
         browser.get(bse_link)
         html = browser.page_source
         soup = BeautifulSoup(html, "html.parser")
-        #For values which are less than previous day are shown in red
-        quote = soup.find('td', class_='tbmainred')
-        if quote is None :
-            #For values which are greater than previous day are shown in green
-            quote = soup.find('td', class_='tbmaingreen')
+        #Get current price of share
+        quote = soup.find('strong', id='idcrval')
         #Remove all tags and html class information and capture only value
         quote = quote.text.strip()
-        diff_than_yesterday = soup.find('td', class_='tbmainsmallred')
+        diff_than_yesterday = soup.find('span', class_ ='sensexbluetext')
         #Check if number which we have captured is float
         if isinstance(float(quote), float) :
             return quote, diff_than_yesterday.text.strip()
