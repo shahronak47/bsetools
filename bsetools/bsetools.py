@@ -40,15 +40,17 @@ class bsetools() :
         return "Cannot find index now"
 
     def __get_price_from_bse(self, bse_link) :
-        #Added some time delay to load up pages
-        time.sleep(3)
-        browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-        browser.get(bse_link)
-        html = browser.page_source
-        time.sleep(3)
-        soup = BeautifulSoup(html, "html.parser")
-        #Get current price of share
-        quote = soup.find('strong', id='idcrval')
+        i = 0
+        quote = None
+        #Attempt searching the quote for 5 times
+        while(quote is None or i < 4) :
+            browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+            browser.get(bse_link)
+            html = browser.page_source
+            soup = BeautifulSoup(html, "html.parser")
+            #Get current price of share
+            quote = soup.find('strong', id='idcrval')
+            i = i + 1
         #Remove all tags and html class information and capture only value
         quote = quote.text.strip()
         diff_than_yesterday = soup.find('span', class_ ='sensexbluetext')
