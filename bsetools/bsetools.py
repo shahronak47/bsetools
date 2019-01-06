@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import collections
 import pdb
+import time
 
 class bsetools() :
 
@@ -39,9 +40,12 @@ class bsetools() :
         return "Cannot find index now"
 
     def __get_price_from_bse(self, bse_link) :
+        #Added some time delay to load up pages
+        time.sleep(3)
         browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
         browser.get(bse_link)
         html = browser.page_source
+        time.sleep(3)
         soup = BeautifulSoup(html, "html.parser")
         #Get current price of share
         quote = soup.find('strong', id='idcrval')
