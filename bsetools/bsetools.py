@@ -2,8 +2,6 @@ from google import google
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import collections
-import pdb
-import time
 
 class bsetools() :
 
@@ -50,7 +48,12 @@ class bsetools() :
         quote = None
         #Attempt searching the quote for 5 times
         while(quote is None or i < 4) :
-            browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+            #browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+            options = webdriver.ChromeOptions()
+            options.add_argument('headless')
+
+            # start chrome browser
+            browser = webdriver.Chrome(chrome_options=options)
             browser.get(bse_link)
             html = browser.page_source
             soup = BeautifulSoup(html, "html.parser")
