@@ -24,7 +24,13 @@ class bsetools() :
         return "NA", False
 
     def get_BSE_index(self):
-        browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+        #browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+        #Set headless chrome options
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+
+        # start chrome browser
+        browser = webdriver.Chrome(chrome_options=options)
         browser.get(self.bse_website)
         html = browser.page_source
         soup = BeautifulSoup(html, "html.parser")
